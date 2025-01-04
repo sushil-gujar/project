@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { ShoppingItem, Shop } from '../types';
 
+
 export function useShoppingList(userId: string | undefined) {
   const [items, setItems] = useState<ShoppingItem[]>([]);
   const [shops, setShops] = useState<Shop[]>([]);
@@ -65,6 +66,7 @@ export function useShoppingList(userId: string | undefined) {
         )
       `)
       .eq('user_id', userId)
+      .order('completed', { ascending: true })
       .order('created_at', { ascending: false });
     
     if (error) {
